@@ -10,6 +10,7 @@ import {FcCarPart} from '../../../api';
 export class DataService {
   BASE_URL: string = 'http://localhost:8080/api/carPart/';
 
+
   constructor(private http: HttpClient) {
   }
 
