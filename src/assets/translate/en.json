@@ -35,8 +35,13 @@
     }
   },
   "DELETE_HINT_TEXT": "Are you really sure to delete ",
+  "DELETE_LABEL_TEXT": "Delete the Item",
   "CONFIRM_DELETE": {
     "CANCEL": "CANCEL",
     "CONFIRM": "Yes, Delete"
-  }
+  },
+  "CANT_CONTAINS_SEMICOLON": "The Feld can't contain Semicolon",
+  "CANT_CONTAINS_COMMA": "The Feld can't contain Comma",
+  "MAX_VALUE": "the maximum quantity has been exceeded",
+  "GRAND_DISCOUNT": "Enter Discount in percent"
 }

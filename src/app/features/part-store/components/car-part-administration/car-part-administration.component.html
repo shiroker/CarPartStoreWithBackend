@@ -1,4 +1,3 @@
-
 <app-data-table *ngIf="!(loadAllDataLoading$ | async)"
                 [tableData]="allParts$ | async | defaultArray"
                 [displayedColumns]="dataColumns"
@@ -7,18 +6,17 @@
 
   <ng-template #rowTemplate let-row>
     <td>
-      <button mat-raised-button matTooltip="Beabeiten"  color="primary"
-              matTooltipPosition="left" (click)="onGenerateRabat(row)"
-              class="action_button_edit">{{'DATA.BUTTON.EDIT' | translate}}
-      </button>
+      <input matInput #box [placeholder]="'GRAND_DISCOUNT' | translate"
+             (keyup.enter)="onGenerateRabat(row, box.value)">
     </td>
     <td>
-      <app-action-confirm-dialog-delete [idOfElement]="row.id"
-                                        [hintText]="'DELETE_HINT_TEXT'"
-                                        [itemName]="row.name"
-                                        (acceptButtonClicked)="onRemove($event)"
-                                        [confirmButtonLabel]="'DATA.BUTTON.DELETE' | translate"
-                                 class="action_button_delete"></app-action-confirm-dialog-delete>
+      <app-action-confirm-dialog [idOfElement]="row.id"
+                                 [hintText]="'DELETE_HINT_TEXT'"
+                                 [itemName]="row.name"
+                                 [headerTitle]="'DELETE_LABEL_TEXT' | translate"
+                                 (acceptButtonClicked)="onRemove($event)"
+                                 [confirmButtonLabel]="'DATA.BUTTON.DELETE' | translate"
+                                 class="action_button_delete"></app-action-confirm-dialog>
     </td>
   </ng-template>
 </app-data-table>

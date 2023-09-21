@@ -6,6 +6,8 @@ import {DataConverterService} from '../../../../service/dataConverterService';
 import {Store} from '@ngrx/store';
 import {PartStoreActions} from '../../store/part-store.actions';
 import {FcCarMarke, FcCarPart, FcCarPartType} from '../../../../../../api';
+import {CustomFormValidationErrors, CustomFormValidators} from '../../../../utilities/validators/form-validators';
+import {collectAllFormErrors} from '../../../../../index';
 
 @Component({
   selector: 'app-add-car-part',
@@ -20,6 +22,8 @@ export class AddCarPartComponent implements OnInit {
   allCarMarke$: Observable<DropDownItem<FcCarMarke>[]>;
   carPartTypePlaceholder = FcCarPartType.Sonstiges;
   carMarkePlaceholder = FcCarMarke.Sonstiges;
+  private validationErrors: CustomFormValidationErrors[] = [];
+  formValid = true;
 
   constructor(private formBuilder: FormBuilder,
               private store: Store,
@@ -29,22 +33,27 @@ export class AddCarPartComponent implements OnInit {
   }
 
   onAddClicked(): void {
-    const carPart: FcCarPart = {
-      name: this.formGroup.get('name')?.value,
-      carModel: this.formGroup.get('model')?.value,
-      quantity: this.formGroup.get('quantity')?.value,
-      quantityLimit: this.formGroup.get('quantityLimit')?.value,
-      packageCount: this.formGroup.get('packageCount')?.value,
-      carPartType: this.carPartTypePlaceholder,
-      price: this.formGroup.get('price')?.value,
-      carMarke: this.carMarkePlaceholder,
-      id: -1,
-      rabatt: 1,
-      barCode: '',
-      totalWeightInKg: 1,
-      volumeInCube: 0.2
-    };
-    this.store.dispatch(PartStoreActions.addCarPart({carPart}));
+    if (this.formGroup.valid){
+      const carPart: FcCarPart = {
+        name: this.formGroup.get('name')?.value,
+        carModel: this.formGroup.get('model')?.value,
+        quantity: this.formGroup.get('quantity')?.value,
+        quantityLimit: this.formGroup.get('quantityLimit')?.value,
+        packageCount: this.formGroup.get('packageCount')?.value,
+        carPartType: this.carPartTypePlaceholder,
+        price: this.formGroup.get('price')?.value,
+        carMarke: this.carMarkePlaceholder,
+        id: -1,
+        rabatt: 1,
+        barCode: '',
+        totalWeightInKg: 1,
+        volumeInCube: 0.2
+      };
+      this.store.dispatch(PartStoreActions.addCarPart({carPart}));
+      this.formValid = true;
+    }else {
+      this.formValid = false;
+    }
   }
 
   ngOnInit(): void {
@@ -53,11 +62,19 @@ export class AddCarPartComponent implements OnInit {
 
   private recreateForm() {
     this.formGroup = this.formBuilder.group({
-      name: new FormControl({value: '', disabled: false}, []),
+      name: new FormControl({value: '', disabled: false}, [
+        CustomFormValidators.containsSemicolonValidator('Name'),
+      CustomFormValidators.containsCommaValidator('Name')]),
       model: new FormControl({value: '', disabled: false}, []),
-      quantityLimit: new FormControl({value: '', disabled: false}, []),
-      quantity: new FormControl({value: '', disabled: false}, []),
-      packageCount: new FormControl({value: '', disabled: false}, []),
+      quantityLimit: new FormControl({value: '', disabled: false}, [
+        CustomFormValidators.maxValueValidator('Enthaltene Anzahl', 10)
+      ]),
+      quantity: new FormControl({value: '', disabled: false}, [
+        CustomFormValidators.maxValueValidator('Anzahl', 10)
+      ]),
+      packageCount: new FormControl({value: '', disabled: false}, [
+        CustomFormValidators.maxValueValidator('Packet-Anzahl', 5)
+      ]),
       price: new FormControl({value: '', disabled: false}, [])
     });
   }
@@ -68,5 +85,8 @@ export class AddCarPartComponent implements OnInit {
 
   carMarkeChange(carMarke: FcCarMarke): void {
     this.carMarkePlaceholder = carMarke;
+  }
+  collectErrors(formGroup: FormGroup): CustomFormValidationErrors[]{
+    return formGroup ? collectAllFormErrors(formGroup) : this.validationErrors;
   }
 }

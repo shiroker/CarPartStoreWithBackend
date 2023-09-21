@@ -19,6 +19,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {MultiTranslateHttpLoader} from 'ngx-translate-multi-http-loader';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -26,37 +27,38 @@ import {MultiTranslateHttpLoader} from 'ngx-translate-multi-http-loader';
     AddCarPartComponent,
     CarPartAdministrationComponent,
   ],
-  imports: [
-    FormsModule,
-    MatButtonToggleModule,
-    SharedModule,
-    StoreModule.forRoot(CartPartReducer),
-    EffectsModule.forFeature([PartStoreEffects]),
-    StoreModule.forFeature('partStore', CartPartReducer),
-    RouterModule.forChild([
-      {
-        path: '',
-        component: CarPartAdministrationComponent,
-      }
-    ]),
-    AsyncPipe,
-    MatTableModule,
-    NgIf,
-    MatButtonModule,
-    HttpClientModule,
-    BrowserModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    MatTooltipModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    RouterModule
-  ],
+    imports: [
+        FormsModule,
+        MatButtonToggleModule,
+        SharedModule,
+        StoreModule.forRoot(CartPartReducer),
+        EffectsModule.forFeature([PartStoreEffects]),
+        StoreModule.forFeature('partStore', CartPartReducer),
+        RouterModule.forChild([
+            {
+                path: '',
+                component: CarPartAdministrationComponent,
+            }
+        ]),
+        AsyncPipe,
+        MatTableModule,
+        NgIf,
+        MatButtonModule,
+        HttpClientModule,
+        BrowserModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        MatTooltipModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        RouterModule,
+        MatCardModule
+    ],
   exports: [
     AddCarPartComponent,
     PartStoreViewComponent,

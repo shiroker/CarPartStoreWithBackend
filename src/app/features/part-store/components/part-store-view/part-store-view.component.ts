@@ -74,9 +74,8 @@ export class PartStoreViewComponent implements OnInit {
   }
 
   private decrementQuantity(carPart: FcCarPart): FcCarPart {
-    const decrementedQuantity = carPart.quantity - 1;
-    const newPartQuantity = decrementedQuantity > 0 ? decrementedQuantity : carPart.packageCount > 1 ? 1: 0;
-    const newPartPackageCount = decrementedQuantity > 0 ? carPart.packageCount : carPart.packageCount > 0 ? carPart.packageCount - 1 : 0;
+    const newPartQuantity = carPart.quantity === 1?  carPart.quantityLimit : carPart.quantity - 1;
+    const newPartPackageCount = carPart.quantity === 1?  carPart.packageCount - 1 : carPart.packageCount;
 
     return {
       ...carPart,

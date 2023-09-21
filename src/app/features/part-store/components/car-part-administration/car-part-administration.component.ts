@@ -66,20 +66,20 @@ export class CarPartAdministrationComponent implements OnInit {
     return '';
   }
 
-  onGenerateRabat(tableRow: TableData<FcCarPart>): void {
-    this.store.dispatch(PartStoreActions.updateCarPartById({carPartId: tableRow.id, carPart: this.calculatePriceFor(tableRow.payload)}));
+  onGenerateRabat(tableRow: TableData<FcCarPart>, percent: string): void {
+    this.store.dispatch(PartStoreActions.updateCarPartById({carPartId: tableRow.id, carPart: this.calculatePriceFor(tableRow.payload, percent)}));
   }
 
   onRemove(carPartId: number): void {
     this.store.dispatch(PartStoreActions.deleteCarPartById({carPartId}));
   }
 
-  private calculatePriceFor(carPart: FcCarPart): FcCarPart {
-    const newRabatt = 0.8;
+  private calculatePriceFor(carPart: FcCarPart, percent: string): FcCarPart {
+    const newRabatt = parseFloat(percent) ? parseFloat(percent) / 100: 0;
     return {
       ...carPart,
       rabatt: newRabatt,
-      price: carPart.price * newRabatt
+      price: carPart.price * (1- newRabatt)
     };
   }
 

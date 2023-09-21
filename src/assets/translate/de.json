@@ -24,7 +24,7 @@
     "WEIGHT": "Gewicht",
     "ACTIONS": "Aktionen",
     "BUTTON": {
-      "EDIT": "Rabatt gewähren",
+      "EDIT": "Bearbeiten",
       "DELETE": "Löschen"
     }
   },
@@ -35,8 +35,13 @@
     }
   },
   "DELETE_HINT_TEXT": "Wollen Sie wirklich löschen: ",
+  "DELETE_LABEL_TEXT": "Löschen des Elements",
   "CONFIRM_DELETE": {
     "CANCEL": "Abbrechen",
     "CONFIRM": "Ja, Löschen"
-  }
+  },
+  "CANT_CONTAINS_SEMICOLON": "Das Feld darf keine Semikolon enthalten",
+  "CANT_CONTAINS_COMMA": "Das Feld darf keine Komma enthalten",
+  "MAX_VALUE": "Die maximale Menge ist überschritten",
+  "GRAND_DISCOUNT": "Rabatt in Prozent eingeben"
 }

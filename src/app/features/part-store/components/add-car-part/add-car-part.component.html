@@ -1,6 +1,9 @@
 <div class="center">
   <form [formGroup]="formGroup">
     <h1> Ersatzteil Hinzufügen</h1>
+    <div *ngIf="!formValid" style="color: red">
+      <p *ngFor="let err of collectErrors(formGroup)">{{err.message.split('.')[0]}}: {{(err.message.split('.')[1] | translate)}}</p><br>
+    </div>
     <h4> Name: </h4>
     <mat-form-field>
       <input matInput placeholder="artikelname" formControlName="name">

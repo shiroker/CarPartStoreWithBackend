@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ConfirmData, ConfirmDialogComponent} from './confirm-dialog.component';
 
 @Component({
-  selector: 'app-action-confirm-dialog-delete',
+  selector: 'app-action-confirm-dialog',
   template: `
     <button mat-raised-button [matTooltip]="confirmButtonLabel" color="warn"
             (click)="onClick()">{{confirmButtonLabel}}</button>`,
