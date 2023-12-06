@@ -34,7 +34,7 @@ export class AddCarPartComponent implements OnInit {
 
   onAddClicked(): void {
     if (this.formGroup.valid){
-      const carPart: FcCarPart = {
+      let carPart: FcCarPart = {
         name: this.formGroup.get('name')?.value,
         carModel: this.formGroup.get('model')?.value,
         quantity: this.formGroup.get('quantity')?.value,
@@ -49,6 +49,9 @@ export class AddCarPartComponent implements OnInit {
         totalWeightInKg: 1,
         volumeInCube: 0.2
       };
+      if (!carPart.quantity){
+        carPart = {...carPart, quantity: carPart.quantityLimit, packageCount: carPart.packageCount >0 ? carPart.packageCount - 1 : 0}
+      }
       this.store.dispatch(PartStoreActions.addCarPart({carPart}));
       this.formValid = true;
     }else {
@@ -88,5 +91,12 @@ export class AddCarPartComponent implements OnInit {
   }
   collectErrors(formGroup: FormGroup): CustomFormValidationErrors[]{
     return formGroup ? collectAllFormErrors(formGroup) : this.validationErrors;
+  }
+
+  private organizeQuantity(carPart: FcCarPart): FcCarPart {
+    if (!carPart.quantity){
+      carPart = {...carPart, quantity: carPart.quantityLimit, packageCount: carPart.packageCount >0 ? carPart.packageCount - 1 : 0}
+    }
+    return carPart;
   }
 }

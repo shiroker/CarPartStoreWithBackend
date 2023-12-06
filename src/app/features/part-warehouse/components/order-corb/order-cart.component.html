@@ -1,0 +1,37 @@
+<div style=" padding: 40px 0; text-align: center;" *ngIf="isOrdered$| async">
+  <table mat-table [dataSource]="allFromCart$| async | defaultArray" class="mat-elevation-z8" style="width: 60% !important; margin-left: 5%">
+    <!-- Name Column -->
+    <ng-container [matColumnDef]="'name'">
+      <mat-header-cell *matHeaderCellDef class="mat-header-cell"> {{'DATA.NAME' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-cell"> {{element.name}} </mat-cell>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container [matColumnDef]="'packageCount'">
+      <mat-header-cell *matHeaderCellDef class="mat-header-cell"> {{'DATA.PACKAGE_QUANTITY'  | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-cell"> {{element.packageCount}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="quantityLimit">
+      <mat-header-cell *matHeaderCellDef class="mat-header-cell">{{'DATA.INCLUDED_QUANTITY' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-cell"> {{element.quantityLimit}} </mat-cell>
+    </ng-container>
+    <ng-container [matColumnDef]="'price'">
+      <mat-header-cell *matHeaderCellDef class="mat-header-cell"> {{'DATA.PRICE' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-cell"> {{element.price}} </mat-cell>
+    </ng-container>
+    <ng-container [matColumnDef]="'action'">
+      <mat-header-cell *matHeaderCellDef class="mat-header-cell"> {{'DATA.ACTION' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-cell">
+      <button mat-raised-button color="warn" (click)="deleteItem(element)"> Löschen</button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+             (click)="selection.toggle(row)">
+    </mat-row>
+  </table>
+  <div>
+    <label>Total Price: {{totalPrice$ | async }} €</label>
+    <button mat-raised-button color="primary" (click)="orderAll()"  style="background-color: #56e777; margin: 10px">
+      Bestellen</button>
+  </div>
+</div>

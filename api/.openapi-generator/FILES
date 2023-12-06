@@ -1,0 +1,15 @@
+.gitignore
+.openapi-generator-ignore
+README.md
+api.module.ts
+api/api.ts
+api/carPart.service.ts
+configuration.ts
+encoder.ts
+git_push.sh
+index.ts
+model/fcCarMarke.ts
+model/fcCarPart.ts
+model/fcCarPartType.ts
+model/models.ts
+variables.ts

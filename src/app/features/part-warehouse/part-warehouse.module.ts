@@ -11,9 +11,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SharedModule} from '../../shared/shared.module';
+import { OrderProzessComponent } from './components/order-prozess/order-prozess.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { OrderCartComponent } from './components/order-corb/order-cart.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {TranslateModule} from '@ngx-translate/core';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
-  declarations: [PartOrderPageComponent],
+  declarations: [PartOrderPageComponent, OrderProzessComponent, OrderCartComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -26,9 +32,14 @@ import {SharedModule} from '../../shared/shared.module';
     MatTooltipModule,
     ReactiveFormsModule,
     SharedModule,
+    MatTabsModule,
+    MatButtonToggleModule,
+    TranslateModule,
+    MatTableModule,
   ],
   exports: [
-    PartOrderPageComponent
+    PartOrderPageComponent,
+    OrderProzessComponent
   ]
 })
 export class PartWarehouseModule {

@@ -11,20 +11,20 @@ import {PartWarehouseActions} from '../../store/part-warehouse.actions';
 @Component({
   selector: 'app-part-order-page',
   templateUrl: './part-order-page.component.html',
-  styleUrls: ['./part-order-page.component.css']
 })
 export class PartOrderPageComponent implements OnInit {
   formGroup: FormGroup;
   allCarParts$: Observable<DropDownItem<FcCarPart>[]>;
   carPartsPlaceholder = 'Wählen Sie den Teil';
   carPart?: FcCarPart;
+
   constructor(private store: Store, private fb: FormBuilder) {
     this.store.dispatch(PartWarehouseActions.loadCarPartsForOrdering());
     this.allCarParts$ = this.store.select(PartWarehouseSelectors.selectAllParts).pipe(
       map(all => this.mapToDropDownItems(all)));
     this.formGroup = this.fb.group({
       packageCount: new FormControl
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -37,28 +37,22 @@ export class PartOrderPageComponent implements OnInit {
   }
 
   addToWareCorp(): void {
-    if (this.carPart){
-      const packageCount: number =this.carPart.packageCount + Number(this.formGroup.get('packageCount')?.value);
-      if (packageCount){
-        this.carPart = {
-          ...this.carPart,
-          packageCount
-        };
-        this.store.dispatch(PartWarehouseActions.addPartToWareCorp({carPart: this.carPart}));
-      }
-
+    if (this.carPart) {
+      const orderedCount: number = Number(this.formGroup.get('packageCount')?.value);
+      this.store.dispatch(PartWarehouseActions.addPartToWareCorp({carPart: this.carPart, orderedCount}));
     }
   }
 
   orderAllParts() {
     this.store.dispatch(PartWarehouseActions.orderCarParts());
   }
+
   private mapToDropDownItems(all: FcCarPart[]): DropDownItem<FcCarPart>[] {
     return all.map(part => {
       return {
         name: this.createPartLabel(part),
         data: part
-      }
+      };
     });
   }
 

@@ -4,7 +4,6 @@ import {MenuListItem} from '../../../shared/components/menu-bar/menu-bar.compone
 @Component({
   selector: 'app-global-menu',
   templateUrl: './global-menu.component.html',
-  styleUrls: ['./global-menu.component.css']
 })
 export class GlobalMenuComponent {
   orderMode = false;

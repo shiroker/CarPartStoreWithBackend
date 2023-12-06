@@ -6,7 +6,7 @@
 
   <ng-template #rowTemplate let-row>
     <td>
-      <input matInput #box [placeholder]="'GRAND_DISCOUNT' | translate"
+      <input style="width: 50px !important;" matInput #box [matTooltip]="'GRAND_DISCOUNT' | translate"
              (keyup.enter)="onGenerateRabat(row, box.value)">
     </td>
     <td>

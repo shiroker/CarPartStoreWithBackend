@@ -1,4 +1,4 @@
-<app-menu-bar style="width:1200em !important;" [menuListItem]="getMenuListItems()" (menuItemClick)="onClickMenuItem($event)">
+<app-menu-bar style="width:1200em !important; height: 30% !important;" [menuListItem]="getMenuListItems()" (menuItemClick)="onClickMenuItem($event)">
   <mat-tab-group  *ngIf="!orderMode">
     <mat-tab [label]="'HOME.TAB.ADMINISTRATION' | translate" style="position: sticky !important; top: 0; max-block-size: 700px" (click)="tabType = 'admin'">
       <app-car-part-administration>
@@ -12,5 +12,5 @@
       <app-add-car-part></app-add-car-part>
     </mat-tab>
   </mat-tab-group>
-  <app-part-order-page *ngIf="orderMode"></app-part-order-page>
+  <app-order-prozess *ngIf="orderMode"></app-order-prozess>
 </app-menu-bar>

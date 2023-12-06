@@ -3,7 +3,7 @@
 </div>
 
 <div class="example-container mat-elevation-z4">
-  <mat-table *ngIf="rowTemplate" [dataSource]="getTableDataSource()">
+  <mat-table *ngIf="rowTemplate" [dataSource]="getTableDataSource()" style="margin-left: 5%">
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef class="mat-header-cell"> {{'DATA.NO' | translate}}</mat-header-cell>
@@ -51,10 +51,8 @@
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef>{{'DATA.ACTIONS' | translate}}</mat-header-cell>
       <mat-cell *matCellDef="let element;" style="width: 1600px !important;">
-        <tr>
           <ng-container *ngTemplateOutlet="rowTemplate; context: {$implicit: element, row: element, rowIndex: element.index}">
           </ng-container>
-        </tr>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
